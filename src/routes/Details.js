@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Movie from "../components/movie-app/Movie";
+import styles from "./Details.module.css";
 
 function Detail() {
   const { id } = useParams();
@@ -17,22 +18,28 @@ function Detail() {
   };
   useEffect(() => {
     getMovie();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
   console.log(id);
   return (
-    <div>
+    <div className={styles.container}>
       {loading ? (
-        <h1>Loading...</h1>
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
       ) : (
-        <Movie
-          key={movie.id}
-          id={movie.id}
-          coverImg={movie.medium_cover_image}
-          title={movie.title}
-          summary={movie.description_full}
-          genres={movie.genres}
-        />
+        <div className={styles.movies}>
+          <Movie
+            key={movie.id}
+            id={movie.id}
+            year={movie.year}
+            coverImg={movie.medium_cover_image}
+            title={movie.title}
+            summary={movie.description_full}
+            genres={movie.genres}
+            type="detail"
+          />
+        </div>
       )}
     </div>
   );
